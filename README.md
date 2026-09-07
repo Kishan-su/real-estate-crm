@@ -184,9 +184,7 @@ RealEstateCRM/
 └── README.md
 
 
-Then add:
 
-```markdown
 ## Screenshots
 
 ### Login
