@@ -190,19 +190,19 @@ Then add:
 ## Screenshots
 
 ### Login
-![Login](screenshots/Login.png)
+<img src="screenshots/Login.png" alt="Login" width="800">
 
 ### Dashboard
-![Dashboard](screenshots/DashBoard.png)
+<img src="screenshots/DashBoard.png" alt="Dashboard" width="800">
 
 ### Lead Management
-![Leads](screenshots/Leads.png)
+<img src="screenshots/Leads.png" alt="Leads" width="800">
 
 ### Property Management
-![Properties](screenshots/Properties.png)
+<img src="screenshots/Properties.png" alt="Properties" width="800">
 
 ### Booking Management
-![Bookings](screenshots/Bookings.png)
+<img src="screenshots/Bookings.png" alt="Bookings" width="800">
 
 ## API Overview
 
