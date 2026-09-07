@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - EstateFlow{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <div>
+        <h2>Sales Overview</h2>
+        <p>Track your leads, follow-ups and property bookings.</p>
+    </div>
+
+    <a href="/leads/" class="btn btn-dark">
+        <i class="bi bi-plus-lg"></i>
+        Add Lead
+    </a>
+</div>
+
+
+<!-- KPI Cards -->
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div>
+                <div class="stat-label">Total Leads</div>
+                <div class="stat-value" id="total-leads">-</div>
+            </div>
+
+            <div class="stat-icon">
+                <i class="bi bi-people"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div>
+                <div class="stat-label">Bookings</div>
+                <div class="stat-value" id="total-bookings">-</div>
+            </div>
+
+            <div class="stat-icon">
+                <i class="bi bi-calendar-check"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div>
+                <div class="stat-label">Available Units</div>
+                <div class="stat-value" id="available-units">-</div>
+            </div>
+
+            <div class="stat-icon">
+                <i class="bi bi-house"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div>
+                <div class="stat-label">Booked Units</div>
+                <div class="stat-value" id="booked-units">-</div>
+            </div>
+
+            <div class="stat-icon">
+                <i class="bi bi-house-check"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row g-4">
+
+    <!-- Lead Pipeline -->
+
+    <div class="col-lg-7">
+
+        <div class="dashboard-card">
+
+            <div class="card-header-custom">
+                <div>
+                    <h5>Lead Pipeline</h5>
+                    <p>Current leads by stage</p>
+                </div>
+
+                <a href="/leads/" class="view-link">
+                    View all
+                </a>
+            </div>
+
+            <div id="lead-pipeline">
+                <div class="loading-state">
+                    Loading pipeline...
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Follow-ups -->
+
+    <div class="col-lg-5">
+
+        <div class="dashboard-card">
+
+            <div class="card-header-custom">
+                <div>
+                    <h5>Upcoming Follow-ups</h5>
+                    <p>Your next customer follow-ups</p>
+                </div>
+
+                <a
+                    href="/leads/?follow_up=upcoming"
+                    class="view-link"
+                >
+                    View all
+                </a>
+            </div>
+
+            <div id="followups">
+
+                <div class="loading-state">
+                    Loading follow-ups...
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="/static/js/dashboard.js"></script>
+
+{% endblock %}
