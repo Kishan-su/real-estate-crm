@@ -29,7 +29,7 @@ The application provides role-based access for Admins and Sales Employees, lead 
 
 The property structure follows:
 
-Project → Building → Unit
+**Project → Building → Unit**
 
 Each unit contains:
 
@@ -46,7 +46,7 @@ Sales Employees can view available property information.
 
 The booking flow connects:
 
-Lead → Project → Building → Unit
+**Lead → Project → Building → Unit**
 
 The system:
 
@@ -74,6 +74,7 @@ Dashboard information is also filtered according to the logged-in user's role.
 Two application roles are supported:
 
 **Admin**
+
 - Manage projects
 - Manage buildings
 - Manage units
@@ -82,6 +83,7 @@ Two application roles are supported:
 - Access overall CRM information
 
 **Sales Employee**
+
 - View and manage assigned leads
 - Add follow-ups and notes
 - View property inventory
@@ -171,6 +173,7 @@ RealEstateCRM/
 │       ├── leads.js
 │       ├── properties.js
 │       └── bookings.js
+│
 ├── screenshots/
 │   ├── Login.png
 │   ├── DashBoard.png
@@ -182,25 +185,33 @@ RealEstateCRM/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
+```
 
-
+---
 
 ## Screenshots
 
 ### Login
+
 <img src="screenshots/Login.png" alt="Login" width="800">
 
 ### Dashboard
+
 <img src="screenshots/DashBoard.png" alt="Dashboard" width="800">
 
 ### Lead Management
+
 <img src="screenshots/Leads.png" alt="Leads" width="800">
 
 ### Property Management
+
 <img src="screenshots/Properties.png" alt="Properties" width="800">
 
 ### Booking Management
+
 <img src="screenshots/Bookings.png" alt="Bookings" width="800">
+
+---
 
 ## API Overview
 
@@ -217,26 +228,41 @@ RealEstateCRM/
 | GET | `/api/dashboard/` | Dashboard statistics |
 | GET | `/api/me/` | Current logged-in user |
 
+---
+
 ## Important Technical Decisions
 
 ### 1. Role-Based Access Control
-Admin and Sales Employee permissions are handled on the backend rather than relying only on the frontend. Sales Employees can only access their assigned leads and create bookings for those leads.
+
+Admin and Sales Employee permissions are handled on the backend rather than relying only on the frontend.
+
+Sales Employees can only access their assigned leads and create bookings for those leads.
 
 ### 2. Property Hierarchy
+
 Properties are structured as:
 
-Project → Building → Unit
+**Project → Building → Unit**
 
 This keeps the property relationships simple and makes it easier to manage inventory.
 
 ### 3. Duplicate Booking Protection
-Each unit can have only one booking using a database-level `OneToOneField`. Booking creation also uses a database transaction and row locking to prevent two users from booking the same unit at the same time.
+
+Each unit can have only one booking using a database-level `OneToOneField`.
+
+Booking creation also uses a database transaction and row locking to prevent two users from booking the same unit at the same time.
 
 ### 4. Server-Side Validation
+
 Important business rules such as phone number validation, unit availability, lead assignment, and booking permissions are validated on the backend.
 
 ### 5. Booking History
-Bookings are preserved as records instead of simply deleting booking information when property status changes. This keeps a useful booking history for the sales team.
+
+Bookings are preserved as records instead of simply deleting booking information when property status changes.
+
+This keeps a useful booking history for the sales team.
+
+---
 
 ## Database Overview
 
@@ -251,6 +277,8 @@ The main relationships are:
 
 The application uses SQLite for the project database.
 
+---
+
 ## Setup
 
 ### 1. Clone the repository
@@ -258,3 +286,97 @@ The application uses SQLite for the project database.
 ```bash
 git clone https://github.com/Kishan-su/real-estate-crm.git
 cd real-estate-crm
+```
+
+### 2. Create a virtual environment
+
+Windows:
+
+```bash
+python -m venv .venv
+```
+
+### 3. Activate the virtual environment
+
+Windows PowerShell:
+
+```powershell
+.venv\Scripts\activate
+```
+
+### 4. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Apply migrations
+
+```bash
+python manage.py migrate
+```
+
+### 6. Create an admin user
+
+```bash
+python manage.py createsuperuser
+```
+
+### 7. Start the development server
+
+```bash
+python manage.py runserver
+```
+
+Open the application in your browser at:
+
+```text
+http://127.0.0.1:8000/accounts/login/
+```
+
+---
+
+## Validation & Edge Cases
+
+The application handles several important edge cases:
+
+- Invalid phone numbers are rejected.
+- Property prices must be greater than zero.
+- Sales Employees cannot access other employees' leads.
+- Sales Employees cannot assign leads to other employees.
+- Sales Employees can only book their assigned leads.
+- Already-booked units cannot be booked again.
+- Database constraints protect against duplicate unit bookings.
+- Unauthenticated users cannot access CRM pages or APIs.
+- Admin-only property management actions are protected by backend permissions.
+
+---
+
+## Demo Flow
+
+1. Login as Admin or Sales Employee.
+2. View the sales dashboard.
+3. Create or manage leads.
+4. Track lead stages and follow-ups.
+5. Browse projects, buildings, and units.
+6. Create a booking for an assigned lead.
+7. Verify that the unit becomes Booked and the lead moves to the Booked stage.
+
+---
+
+## Future Improvements
+
+- PostgreSQL for production deployment
+- Advanced reporting and sales analytics
+- Email/SMS follow-up reminders
+- Lead activity history
+- Pagination for larger datasets
+- Production deployment with HTTPS
+
+---
+
+## Author
+
+**Kishan Uppar**
+
+Python Full Stack Developer
