@@ -171,8 +171,92 @@ RealEstateCRM/
 │       ├── leads.js
 │       ├── properties.js
 │       └── bookings.js
+├── screenshots/
+│   ├── Login.png
+│   ├── DashBoard.png
+│   ├── Leads.png
+│   ├── Properties.png
+│   └── Bookings.png
 │
 ├── manage.py
 ├── requirements.txt
 ├── .gitignore
 └── README.md
+
+
+Then add:
+
+```markdown
+## Screenshots
+
+### Login
+![Login](screenshots/Login.png)
+
+### Dashboard
+![Dashboard](screenshots/DashBoard.png)
+
+### Lead Management
+![Leads](screenshots/Leads.png)
+
+### Property Management
+![Properties](screenshots/Properties.png)
+
+### Booking Management
+![Bookings](screenshots/Bookings.png)
+
+## API Overview
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/leads/` | List leads |
+| POST | `/api/leads/` | Create a lead |
+| PUT/PATCH | `/api/leads/{id}/` | Update a lead |
+| GET | `/api/projects/` | List projects |
+| GET | `/api/buildings/` | List buildings |
+| GET | `/api/units/` | List property units |
+| GET | `/api/bookings/` | View bookings |
+| POST | `/api/bookings/` | Create a booking |
+| GET | `/api/dashboard/` | Dashboard statistics |
+| GET | `/api/me/` | Current logged-in user |
+
+## Important Technical Decisions
+
+### 1. Role-Based Access Control
+Admin and Sales Employee permissions are handled on the backend rather than relying only on the frontend. Sales Employees can only access their assigned leads and create bookings for those leads.
+
+### 2. Property Hierarchy
+Properties are structured as:
+
+Project → Building → Unit
+
+This keeps the property relationships simple and makes it easier to manage inventory.
+
+### 3. Duplicate Booking Protection
+Each unit can have only one booking using a database-level `OneToOneField`. Booking creation also uses a database transaction and row locking to prevent two users from booking the same unit at the same time.
+
+### 4. Server-Side Validation
+Important business rules such as phone number validation, unit availability, lead assignment, and booking permissions are validated on the backend.
+
+### 5. Booking History
+Bookings are preserved as records instead of simply deleting booking information when property status changes. This keeps a useful booking history for the sales team.
+
+## Database Overview
+
+The main relationships are:
+
+- User → Lead
+- Project → Building
+- Building → Unit
+- Lead → Booking
+- Unit → Booking
+- User → Booking
+
+The application uses SQLite for the project database.
+
+## Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Kishan-su/real-estate-crm.git
+cd real-estate-crm
