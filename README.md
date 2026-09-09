@@ -380,3 +380,15 @@ The application handles several important edge cases:
 **Kishan Uppar**
 
 Python Full Stack Developer
+---
+
+## Deployment
+
+The project includes a `render.yaml` Blueprint and `build.sh` for Render deployment.
+
+Required deployment secrets:
+
+- `DEMO_ADMIN_PASSWORD`
+- `DEMO_SALES_PASSWORD`
+
+The build runs migrations, collects static files, and creates the demo users/sample CRM data. The production database is PostgreSQL through `DATABASE_URL`.

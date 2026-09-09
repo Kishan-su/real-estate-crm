@@ -24,10 +24,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-secret-key")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "True").lower() == "true"
+# Keep local development convenient, but default to production-safe settings on Render.
+DEBUG = os.getenv(
+    "DEBUG",
+    "False" if os.getenv("RENDER") else "True"
+).lower() == "true"
 
-ALLOWED_HOSTS = ["*"]
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+else:
+    allowed_hosts = os.getenv("ALLOWED_HOSTS", "")
+    render_host = os.getenv("RENDER_EXTERNAL_HOSTNAME", "")
+    ALLOWED_HOSTS = [host.strip() for host in (allowed_hosts + "," + render_host).split(",") if host.strip()]
+
+# Render terminates HTTPS at its load balancer.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 
 # Application definition

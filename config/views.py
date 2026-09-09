@@ -20,3 +20,7 @@ def properties(request):
 @login_required(login_url="/accounts/login/")
 def bookings(request):
     return render(request, "bookings.html")
+
+def health(request):
+    from django.http import JsonResponse
+    return JsonResponse({"status": "ok"})
